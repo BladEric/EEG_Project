@@ -89,3 +89,19 @@
 3. **没有任何模型（包括 EEGNet）超过简单基线**——复杂度从来不是瓶颈，数据量 / 任务性质才是。EEGNet 在 ~1500 训练样本上无法发挥（它通常需要数千以上样本）。
 
 图：`Figures/08_cross_subject.png`（被试内 vs 跨被试）、`Figures/10_final_cross_subject.png`（6 模型汇总）；数字：`Results/cross_subject.txt`, `eegnet_cross_subject.txt`, `final_cross_subject.txt`。
+
+## 九、Exp3 复现：测谎 / 隐瞒熟悉度（`Code/11_reproduce_exp3.py`）日期 2026-07-01
+Exp3 是三个实验里最有司法价值的：被试对一张【真正认识】的脸被要求撒谎答“不认识”。问题：嘴上否认时，EEG 还能不能出卖他？
+忠实复现老师 MATLAB `EEGanalysis_script_Exp2n3.m`（exp2or3=0 分支）。与 Exp1 的关键差异：**fs=512、nSamples=614、nChannels=64、降采样窗=50、rng=10**；4 个人脸通道索引(9/12/33/36=P9/P10/TP9/TP10)在 64 通道里同样成立。流水线其余步骤与 Exp1 相同，复用 `eeg_pipeline.cv_evaluate`。
+
+**复现结果（逻辑回归 + 噪声增强, N=19 被试, 逐被试 10 折 CV）：**
+| 任务 | 本复现 | 论文(Wiese 2021) | d′ | 显著性 |
+|---|---|---|---|---|
+| True vs Unf（如实熟脸 vs 陌生） | **68.8%** | 0.69 | 0.99 | p=1.2e-12 ✅ |
+| **Lie vs Unf（撒谎熟脸 vs 陌生）★** | **62.0%** | 0.61 | 0.61 | p=1.1e-06 ✅ |
+| True vs Lie（如实 vs 撒谎） | **62.1%** | 0.63 | 0.62 | p=7.0e-07 ✅ |
+
+**结论：** 三个任务全部对上论文（误差 1–2%），全部显著高于随机。**核心发现**：`Lie vs Unf` 中两类脸行为上都答“不认识”，但 EEG 仍能以 62% 区分——**即使被试撒谎否认，脑电仍泄露了隐藏的熟悉度**。这是整个项目最有卖点、也最有提升空间（离天花板最远）的任务。
+图：`Figures/11_exp3_reproduction.png`；数字：`Results/exp3_reproduction.txt`。
+
+> **下一步（性能提升的主战场 = Exp3，尤其 Lie vs Unf）：** 复杂模型在 Exp1 已证明无用，故提升应走“没试过且有依据”的路：① 时间窗扩到全 epoch（论文称分类峰值在 400–600ms+，Exp3 隐瞒条件峰值在 200–400ms）；② xDAWN + Riemann 切空间（ERP 解码公认 SOTA）；③ 试次平均增强信噪比；④ 跨被试泛化（司法应用最相关、最难）。
