@@ -1,0 +1,15 @@
+====== 被试内 vs 跨被试（准确率, 全通道）======
+-- High Var (01 vs 03) --
+  模型                   被试内       跨被试
+  Logistic Reg      68.0%     62.5%
+  LDA               67.8%     63.8%
+  SVM (RBF)         66.9%     64.4%
+  Random Forest     67.1%     64.3%
+  Neural Net        66.5%     62.2%
+-- Single Img (02 vs 04) --
+  模型                   被试内       跨被试
+  Logistic Reg      67.9%     54.7%
+  LDA               68.3%     55.6%
+  SVM (RBF)         63.8%     55.8%
+  Random Forest     64.1%     55.4%
+  Neural Net        65.5%     54.9%

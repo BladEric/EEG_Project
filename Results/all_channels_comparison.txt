@@ -1,0 +1,21 @@
+====== 4 通道(28维) vs 全 63 通道(441维) 准确率, N=22 ======
+模型               HighVar 4ch  HighVar all  SingleImg 4ch  SingleImg all
+Logistic Reg          68.8%        68.0%         64.2%          67.9%
+LDA                   69.9%        67.8%         64.8%          68.3%
+SVM (RBF)             67.6%        66.9%         61.2%          63.8%
+Random Forest         66.6%        67.1%         62.5%          64.1%
+Neural Net            67.5%        66.5%         63.9%          65.5%
+
+====== 全通道 − 4通道 的提升（配对 t 检验, N=22）======
+-- High Var --
+  Logistic Reg  -0.8%  (p=0.544)
+  LDA           -2.1%  (p=0.116)
+  SVM (RBF)     -0.7%  (p=0.577)
+  Random Forest +0.4%  (p=0.678)
+  Neural Net    -1.0%  (p=0.455)
+-- Single Img --
+  Logistic Reg  +3.7%  (p=0.0398)  *显著*
+  LDA           +3.5%  (p=0.0775)
+  SVM (RBF)     +2.5%  (p=0.0598)
+  Random Forest +1.6%  (p=0.177)
+  Neural Net    +1.5%  (p=0.223)

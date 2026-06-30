@@ -1,0 +1,6 @@
+====== Exp1 模型对比（准确率, N=22 被试）======
+模型                  High Var    Single Img
+Logistic Reg          68.8%        64.2%
+LDA                   66.6%        63.9%
+SVM (RBF)             67.6%        61.2%
+Random Forest         66.6%        62.5%
