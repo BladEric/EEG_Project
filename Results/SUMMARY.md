@@ -68,3 +68,24 @@
 4. **科学含义**：真正起作用的是「更多信息(通道)」而非「更复杂的模型」；且熟悉度信号的**空间分布因条件而异**——高多样性下集中于人脸脑区，单图下更分散（所以全通道补回了额外信息）。
 
 图：`Figures/07_all_channels.png`；数字：`Results/all_channels_comparison.txt`。
+
+## 八、跨被试训练 + EEGNet（`Code/08_cross_subject.py`, `09_eegnet.py`, `10_final_cross_subject.py`）
+问题：把所有被试合起来训练、测到**没见过的新人**身上，复杂模型 / EEGNet 会更强吗？
+方法：**按被试分组 5 折 CV**（训练/测试是不同的人），全通道；EEGNet 直接吃原始 `(63通道×128时间点)` epoch。
+
+**跨被试准确率：**
+| 模型 | High Var | Single Img |
+|---|---|---|
+| Logistic Reg | 62.5% | 54.7% |
+| LDA | 63.8% | 55.6% |
+| SVM (RBF) | 64.4% | 55.8% |
+| Random Forest | 64.3% | 55.4% |
+| Neural Net (MLP) | 62.2% | 54.9% |
+| **EEGNet (CNN)** | **64.2%** | **54.4%** |
+
+**结论：**
+1. 跨被试比被试内更难：High Var ~68% → ~64%，Single Img ~68% → ~55%。
+2. **High Var 仍可解码且能泛化到新人**；**Single Img 跨被试接近随机** → 单图熟悉度因人而异、不可迁移。这是个很强的神经科学结论：多样化学习造就**跨个体通用**的熟悉度表征。
+3. **没有任何模型（包括 EEGNet）超过简单基线**——复杂度从来不是瓶颈，数据量 / 任务性质才是。EEGNet 在 ~1500 训练样本上无法发挥（它通常需要数千以上样本）。
+
+图：`Figures/08_cross_subject.png`（被试内 vs 跨被试）、`Figures/10_final_cross_subject.png`（6 模型汇总）；数字：`Results/cross_subject.txt`, `eegnet_cross_subject.txt`, `final_cross_subject.txt`。

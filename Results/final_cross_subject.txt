@@ -1,0 +1,8 @@
+====== 跨被试准确率汇总（6 模型, 按被试分组 5 折 CV）======
+模型                  High Var  Single Img
+Logistic Reg           62.5%       54.7%
+LDA                    63.8%       55.6%
+SVM (RBF)              64.4%       55.8%
+Random Forest          64.3%       55.4%
+Neural Net (MLP)       62.2%       54.9%
+EEGNet (CNN)           64.2%       54.4%

@@ -1,0 +1,3 @@
+====== EEGNet 跨被试（按被试分组 5 折 CV）======
+High Var (01 vs 03): EEGNet 跨被试准确率 64.2% (±2.8%)
+Single Img (02 vs 04): EEGNet 跨被试准确率 54.4% (±3.2%)
