@@ -1,0 +1,11 @@
+====== Exp3 最佳配置搜索（逻辑回归+噪声增强, 准确率, N=19）======
+配置                           True vs Unf    Lie vs Unf   True vs Lie
+4ch / 7pts (baseline)             68.8%        62.0%        62.1%
+4ch / 10pts                       70.1%        62.9%        63.0%
+64ch / 7pts                       71.4%        62.3%        67.3%
+64ch / 10pts                      73.0%        62.0%        67.5%
+
+-- 每任务最佳 vs 复现 baseline vs 论文 --
+True vs Unf: 论文=69% | baseline=68.8% | 最佳=73.0% (64ch / 10pts) | Δ=+4.2% (p=0.035) *显著
+Lie vs Unf: 论文=61% | baseline=62.0% | 最佳=62.9% (4ch / 10pts) | Δ=+0.9% (p=0.521)
+True vs Lie: 论文=63% | baseline=62.1% | 最佳=67.5% (64ch / 10pts) | Δ=+5.4% (p=0.012) *显著

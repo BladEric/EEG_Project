@@ -1,0 +1,9 @@
+====== Exp3：xDAWN+Riemann vs 逻辑回归 baseline（准确率, N=19）======
+任务              baseline(28d)  Riemann(64ch)       Δ         配对t检验      论文
+True vs Unf            68.8%          68.2%   -0.6%   p=0.709     69%
+Lie vs Unf             62.0%          58.4%   -3.6%   p=0.147     61%
+True vs Lie            62.1%          64.9%   +2.8%   p=0.224     63%
+
+True vs Unf: Riemann=68.2%, vs 50% t=10.29 p=5.77e-09
+Lie vs Unf: Riemann=58.4%, vs 50% t=3.81 p=0.00128
+True vs Lie: Riemann=64.9%, vs 50% t=6.39 p=5.13e-06
